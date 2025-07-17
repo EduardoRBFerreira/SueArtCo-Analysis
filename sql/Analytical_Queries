@@ -1,0 +1,134 @@
+# Analyze Year-over-Year Trends
+annual_trends <- etsy_data %>%
+  group_by(year) %>%
+  summarise(
+    total_revenue = sum(`Item Total`),
+    total_orders = n_distinct(`Order ID`), # Use n_distinct for unique orders
+    .groups = 'drop'
+  )
+
+print(annual_trends)
+
+## Analyze Monthly and Quarterly Trends (Seasonality)
+# Montly
+monthly_trends <- etsy_data %>%
+  group_by(year, month) %>%
+  summarise(
+    total_revenue = sum(`Item Total`),
+    .groups = 'drop'
+  )
+
+print(monthly_trends)
+
+# By quarter
+quarterly_trends <- etsy_data %>%
+  group_by(year, quarter) %>%
+  summarise(
+    total_revenue = sum(`Item Total`),
+    .groups = 'drop'
+  )
+
+print(quarterly_trends)
+
+# Revenue and Order Volume for Physical vs. Digital Products Over Time
+
+# Calculate yearly revenue and order volume by product type
+product_type_yearly_trends <- etsy_data %>%
+  group_by(year, product_type) %>%
+  summarise(
+    total_revenue = sum(`Item Total`),
+    total_orders = n_distinct(`Order ID`), 
+    .groups = 'drop'
+  )
+
+print(product_type_yearly_trends)
+
+# Average Price Per Unit for Physical vs. Digital Products
+
+average_price_per_type <- etsy_data %>%
+  group_by(product_type) %>%
+  summarise(
+    total_item_total = sum(`Item Total`),
+    total_quantity_sold = sum(Quantity),
+    average_price_per_unit = total_item_total / total_quantity_sold,
+    .groups = 'drop'
+  )
+
+print(average_price_per_type)
+
+# Top 5 Best-Selling Products by Units Sold and Total Revenue
+
+# total units sold and total revenue for each item
+item_performance <- etsy_data %>%
+  group_by(product_type, `Item Name`) %>%
+  summarise(
+    total_units_sold = sum(Quantity),
+    total_revenue = sum(`Item Total`),
+    .groups = 'drop'
+  )
+
+# Top 5 Best-Selling Physical Products by Units Sold
+top_physical_units <- item_performance %>%
+  filter(product_type == "Physical") %>%
+  arrange(desc(total_units_sold)) %>%
+  head(5)
+
+print("Top 5 Physical Products by Units Sold:")
+print(top_physical_units)
+
+# Top 5 Best-Selling Digital Products by Units Sold
+top_digital_units <- item_performance %>%
+  filter(product_type == "Digital") %>%
+  arrange(desc(total_units_sold)) %>%
+  head(5)
+
+print("Top 5 Digital Products by Units Sold:")
+print(top_digital_units)
+
+# Top 5 Best-Selling Physical Products by Total Revenue
+top_physical_revenue <- item_performance %>%
+  filter(product_type == "Physical") %>%
+  arrange(desc(total_revenue)) %>%
+  head(5)
+
+print("Top 5 Physical Products by Total Revenue:")
+print(top_physical_revenue)
+
+# Top 5 Best-Selling Digital Products by Total Revenue
+top_digital_revenue <- item_performance %>%
+  filter(product_type == "Digital") %>%
+  arrange(desc(total_revenue)) %>%
+  head(5)
+
+print("Top 5 Digital Products by Total Revenue:")
+print(top_digital_revenue)
+
+# Products with Most and Least Revenue
+
+most_revenue_product <- item_performance %>%
+  arrange(desc(total_revenue)) %>%
+  head(1)
+
+print("Product with the Most Revenue:")
+print(most_revenue_product)
+
+least_revenue_product <- item_performance %>%
+  arrange(total_revenue) %>%
+  head(1)
+
+print("Product with the Least Revenue (Overall):")
+print(least_revenue_product)
+
+# Total orders and revenue per country
+customer_geo_distribution <- etsy_data %>%
+  group_by(`Ship Country`) %>%
+  summarise(
+    total_orders = n_distinct(`Order ID`),
+    total_revenue = sum(`Item Total`),
+    .groups = 'drop'
+  ) %>%
+  arrange(desc(total_orders)) 
+
+print("Top 10 Countries by Orders:")
+print(head(customer_geo_distribution, 10))
+

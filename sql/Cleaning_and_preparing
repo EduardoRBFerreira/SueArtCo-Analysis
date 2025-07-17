@@ -1,0 +1,40 @@
+## Loading packages 
+
+library(lubridate)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(scales)
+
+## Loading CSV Files 
+
+data_2022 <- read_csv("EtsySoldOrderItems2022.csv")
+data_2023 <- read_csv("EtsySoldOrderItems2023.csv")
+data_2024 <- read_csv("EtsySoldOrderItems2024.csv")
+data_2025 <- read_csv("EtsySoldOrderItems2025.csv")
+
+
+## Cleaning and Preparing Data
+
+etsy_data <- bind_rows(data_2022, data_2023, data_2024, data_2025)
+
+rm(data_2022, data_2023, data_2024, data_2025)
+
+# Convert Sale Date to a proper date format (mdy should work for MM/DD/YY)
+etsy_data <- etsy_data %>%
+  mutate(
+    `Sale Date` = mdy(`Sale Date`)
+    `Item Total` = as.numeric(`Item Total`),
+    year = year(`Sale Date`),
+    month = month(`Sale Date`, label = TRUE),
+    quarter = quarter(`Sale Date`),
+    
+    # Create the product_type column
+
+    product_type = if_else(
+      grepl("Digital|Instant|Printable", `Item Name`, ignore.case = TRUE),
+      "Digital",
+      "Physical"
+    )
+  )
+
