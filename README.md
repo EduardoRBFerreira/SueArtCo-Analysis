@@ -36,7 +36,7 @@ This project undertook a comprehensive data analysis of Etsy sales records from 
 
 The analysis indicated that the owner's hypothesis was largely supported: the observed decline in overall sales performance was significantly driven by a disproportionate decrease in revenue and order volume from physical products over the period. While digital products showed more stability or even growth in certain periods.
 
-Most revenue by country was concentrated in United States(8534) and United Kingdom(5832), followed by Australia(1054), Germany(605) and Canada(490). As you can see on the map visualisation below.
+Most revenue by country was concentrated in United States(£8534) and United Kingdom(£5832), followed by Australia(£1054), Germany(£605) and Canada(£490). As you can see on the map visualisation below.
 
 The analysis of individual listings revealed clear top-performers. The most sold products were predominantly Superhero Art Print set of 3, the digital Wall Art Gift, and Superhero Art Print set of 3, but the physical version of the product, indicating strong market demand or effective listing strategies for these items. 
 
