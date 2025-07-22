@@ -1,6 +1,6 @@
 # Project Background
 
-On this project the focus is on analysis of sales transaction data from an Etsy store between 2022 to 2025. The primary objective was to provide data-driven insights to the store owner, who is facing a decline in sales and some to issues with physical products.
+On this project the focus is on analysis of sales transaction data from an Etsy store between 2022 to 2025. The primary objective was to provide data-driven insights to the store owner, who is facing a decline in sales and some issues with physical products.
 
 You can see the SueArtCo Etsy Store [here](https://www.etsy.com/pt/shop/SueArtCoShop)
 
